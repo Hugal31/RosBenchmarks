@@ -95,6 +95,51 @@ BENCHMARK_CAPTURE(BM_serialization, std_msgs_bool, createStdMsgsBool());
 BENCHMARK_CAPTURE(BM_serialization, geometry_msgs_pose_array, createGeometryMsgsPoseArray());
 
 template <class M>
+void BM_deserialization(benchmark::State &state, const M &message)
+{
+#if BENCH_ROS_VERSION == 1
+    ros::SerializedMessage serializedMessage = ros::serialization::serializeMessage(message);
+
+    // Warm-up
+    for (int i = 0; i < 10; ++i)
+    {
+        M deserializedMessage;
+        ros::serialization::deserializeMessage(serializedMessage, deserializedMessage);
+        benchmark::DoNotOptimize(deserializedMessage);
+    }
+
+    for (auto _ : state)
+    {
+        M deserializedMessage;
+        ros::serialization::deserializeMessage(serializedMessage, deserializedMessage);
+        benchmark::DoNotOptimize(deserializedMessage);
+    }
+#elif BENCH_ROS_VERSION == 2
+    rclcpp::Serialization<M> serialization;
+    rclcpp::SerializedMessage serializedMessage;
+    serialization.serialize_message(&message, &serializedMessage);
+    // Warm-up
+    for (int i = 0; i < 10; ++i)
+    {
+        M deserializedMessage {rosidl_runtime_cpp::MessageInitialization::SKIP};
+        serialization.deserialize_message(&serializedMessage, &deserializedMessage);
+        benchmark::DoNotOptimize(deserializedMessage);
+    }
+
+    for (auto _ : state)
+    {
+        M deserializedMessage {rosidl_runtime_cpp::MessageInitialization::SKIP};
+        serialization.deserialize_message(&serializedMessage, &deserializedMessage);
+        benchmark::DoNotOptimize(deserializedMessage);
+    }
+#endif
+    state.SetBytesProcessed(static_cast<int64_t>(getMessageLength(message) * state.iterations()));
+}
+BENCHMARK_CAPTURE(BM_deserialization, std_msgs_header, createStdMsgsHeader());
+BENCHMARK_CAPTURE(BM_deserialization, std_msgs_bool, createStdMsgsBool());
+BENCHMARK_CAPTURE(BM_deserialization, geometry_msgs_pose_array, createGeometryMsgsPoseArray());
+
+template <class M>
 void BM_preAllocSerialization(benchmark::State &state, const M &message)
 {
 #if BENCH_ROS_VERSION == 1
