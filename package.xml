@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<package format="3">
+  <name>ros_benchmarks</name>
+  <version>0.1.0</version>
+  <description></description>
+
+  <author email="hla@lescompanions.com">Hugo Laloge</author>
+  <maintainer email="hla@lescompanions.com">Hugo Laloge</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>cmake</buildtool_depend>
+
+  <depend condition="ROS_VERSION == 1">roscpp</depend>
+  <depend condition="ROS_VERSION == 2">rclcpp</depend>
+
+  <depend>geometry_msgs</depend>
+  <depend>std_msgs</depend>
+</package>
