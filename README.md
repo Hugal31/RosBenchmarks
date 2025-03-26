@@ -17,7 +17,7 @@ CPU Caches:
   L3 Unified 12288 KiB (x1)
 Load Average: 0.56, 0.59, 0.88
 ---------------------------------------------------------------------------------------------------------------------------
-Benchmark                                                                 Time             CPU   Iterations UserCounters...
+Benchmark                                                  Time             CPU   Iterations UserCounters...
 ---------------------------------------------------------------------------------------------------------------------------
 BM_serialization/std_msgs_header                        35.4 ns         35.4 ns     20223211 bytes_per_second=565.588M/s
 BM_serialization/std_msgs_bool                          31.8 ns         31.8 ns     20964098 bytes_per_second=30.019M/s
