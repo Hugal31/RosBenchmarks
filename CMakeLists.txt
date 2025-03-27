@@ -3,7 +3,15 @@ project(RosBenchmarks)
 
 set(CMAKE_CXX_STANDARD 17)
 
-find_package(benchmark REQUIRED)
+include(FetchContent)
+
+set(BENCHMARK_ENABLE_TESTING OFF)
+set(BENCHMARK_ENABLE_LTO ON)
+FetchContent_Declare(googlebenchmark
+    GIT_REPOSITORY https://github.com/google/benchmark.git
+    GIT_TAG v1.9.2)
+FetchContent_MakeAvailable(
+    googlebenchmark)
 
 add_executable(benchmarks src/serialization.cpp)
 target_link_libraries(benchmarks PRIVATE benchmark::benchmark)

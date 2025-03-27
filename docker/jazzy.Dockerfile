@@ -11,5 +11,4 @@ RUN apt-get upgrade \
         ros-jazzy-rmw-fastrtps-cpp \
         ros-jazzy-rmw-fastrtps-cpp-dbgsym \
         ros-jazzy-rmw-fastrtps-shared-cpp-dbgsym \
-        libbenchmark-dev \
     && apt-get clean
