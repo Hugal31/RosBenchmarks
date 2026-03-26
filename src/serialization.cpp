@@ -10,6 +10,7 @@
 #define ROS_MESSAGE(package, name) package::name
 #elif BENCH_ROS_VERSION == 2
 #include <geometry_msgs/msg/pose_array.hpp>
+#include <rclcpp/logging.hpp>
 #include <rclcpp/rclcpp.hpp>
 #include <rclcpp/serialization.hpp>
 #include <std_msgs/msg/bool.hpp>
