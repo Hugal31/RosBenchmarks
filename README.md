@@ -6,6 +6,10 @@ This repository contains some benchmarks to compare ROS 1 and 2.
 
 Simple test of serialization using multiple messages.
 
+For ROS2, the biggest overhead seems to the the type support handle being [fetched](https://github.com/ros2/rmw_fastrtps/blob/e5c8a84386fd9059f99ed6710ad4d7ac80f089b0/rmw_fastrtps_cpp/src/rmw_serialize.cpp#L31)
+and [rebuilt](https://github.com/ros2/rmw_fastrtps/blob/e5c8a84386fd9059f99ed6710ad4d7ac80f089b0/rmw_fastrtps_cpp/src/rmw_serialize.cpp#L43) every single time.
+
+
 ### Noetic
 
 ```
